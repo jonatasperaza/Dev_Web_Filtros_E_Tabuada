@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabuada e Filtro de Nomes</title>
+</head>
+<body>
+    <h1>Tabuada</h1>
+    <input type="number" id="numero" placeholder="Digite um número">
+    <div id="tabuada"></div>
+
+    <h1>Filtro de Nomes</h1>
+    <input type="text" id="filtro" placeholder="Digite um nome para filtrar">
+    <ul id="nomes">
+        <li>João</li>
+        <li>Claudio</li>
+        <li>Marcio</li>
+    </ul>
+
+    <script>
+        // Captura o evento ONINPUT do input de número para mostrar a tabuada
+        const numeroInput = document.getElementById('numero');
+        const tabuadaDiv = document.getElementById('tabuada');
+
+        numeroInput.addEventListener('input', () => {
+            tabuadaDiv.innerHTML = '';
+            const numeroText = numeroInput.value.trim(); // Remove espaços em branco
+        
+            if (numeroText === "") {
+                return; // Não faz nada se o campo estiver vazio
+            }
+        
+            const numero = parseInt(numeroText);
+        
+            for (let i = 1; i <= 10; i++) {
+                const resultado = numero * i;
+                const linhaTabuada = `${numero} x ${i} = ${resultado}`;
+                const paragrafo = document.createElement('p');
+                paragrafo.textContent = linhaTabuada;
+                tabuadaDiv.appendChild(paragrafo);
+            }
+        });
+        
+
+        // Filtra os nomes na lista com base no input de filtro
+        const filtroInput = document.getElementById('filtro');
+        const nomesUl = document.getElementById('nomes');
+        const nomesLi = nomesUl.querySelectorAll('li');
+
+        filtroInput.addEventListener('input', () => {
+            const filtro = filtroInput.value.toLowerCase();
+
+            nomesLi.forEach((nomeLi) => {
+                const nome = nomeLi.textContent.toLowerCase();
+
+                if (nome.includes(filtro)) {
+                    nomeLi.style.fontWeight = 'bold';
+                } else {
+                    nomeLi.style.fontWeight = 'normal';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
